@@ -1,14 +1,19 @@
-import { Button } from 'antd';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import Layout from './components/Layout';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-
-      <p>Hello React!</p>
-      <Button type="primary">Button</Button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<p>Home</p>} />
+          <Route path="products" element={<p>Products</p>} />
+          <Route path="orders" element={<p>Orders</p>} />
+          <Route path="*" element={<p>Page Not Found!</p>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
-
+};
 export default App;
