@@ -1,23 +1,10 @@
 import React from 'react';
-import { Breadcrumb, Layout as AntdLayout, Menu, theme } from 'antd';
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { Layout as AntdLayout, theme } from 'antd';
+import { Link, Outlet } from "react-router-dom";
+import Footer from './Footer';
+import Header from './Header';
 
-const { Header, Content, Footer } = AntdLayout;
-
-const items = [
-    {
-        index: 0,
-        label: "Home"
-    },
-    {
-        index: 1,
-        label: "Products"
-    },
-    {
-        index: 2,
-        label: "Orders"
-    }
-];
+const { Content } = AntdLayout;
 
 export default function Layout() {
     const {
@@ -26,24 +13,8 @@ export default function Layout() {
 
     return (
         <AntdLayout>
-            <Header
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
-            >
-                <div className="demo-logo" />
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={['2']}
-                    items={items}
-                    style={{
-                        flex: 1,
-                        minWidth: 0,
-                    }}
-                />
-            </Header>
+            <Header />
+
             <Content
                 style={{
                     padding: '0 48px',
@@ -62,13 +33,8 @@ export default function Layout() {
                     <Outlet />
                 </div>
             </Content>
-            <Footer
-                style={{
-                    textAlign: 'center',
-                }}
-            >
-                Ant Design ©{new Date().getFullYear()} Created by Ant UED
-            </Footer>
+
+            <Footer />
         </AntdLayout>
     )
 }
