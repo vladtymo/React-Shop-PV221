@@ -1,10 +1,12 @@
-import logo from './logo.svg';
+import { Button } from 'antd';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      Hello React!
+
+      <p>Hello React!</p>
+      <Button type="primary">Button</Button>
     </div>
   );
 }
