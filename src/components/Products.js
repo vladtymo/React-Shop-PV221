@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Rate, Space, Table, Tag } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const makeFirstUpper = (text) => {
     return text[0].toUpperCase() + text.slice(1);
@@ -52,13 +53,14 @@ const columns = [
             <Space size="middle">
                 <a>Show</a>
                 <Popconfirm
-                    title="Delete the task"
-                    description="Are you sure to delete this task?"
+                    title="Delete the product"
+                    description={`Are you sure to delete ${record.title}?`}
                     onConfirm={() => confirm(record.id)}
                     okText="Yes"
                     cancelText="No"
+                    placement="left"
                 >
-                    <Button danger>Delete</Button>
+                    <Button danger icon={<DeleteOutlined />}></Button>
                 </Popconfirm>
             </Space>
         ),
