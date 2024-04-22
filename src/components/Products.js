@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Rate, Space, Table, Tag } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const makeFirstUpper = (text) => {
     return text[0].toUpperCase() + text.slice(1);
@@ -85,7 +86,12 @@ export default function Products() {
     }, []);
 
     return (
-        <Table columns={columns} dataSource={products} pagination={{ pageSize: 5 }} rowKey="id" />
+        <>
+            <Button style={{ marginBottom: 10 }} type="primary">
+                <Link to="create">Create New Product</Link>
+            </Button>
+            <Table columns={columns} dataSource={products} pagination={{ pageSize: 5 }} rowKey="id" />
+        </>
     );
 }
 
