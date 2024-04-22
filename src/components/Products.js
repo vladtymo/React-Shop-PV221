@@ -84,9 +84,14 @@ export default function Products() {
 
     return (
         <>
-            <Button style={{ marginBottom: 10 }} type="primary">
-                <Link to="create">Create New Product</Link>
-            </Button>
+            <Space>
+                <Button style={{ marginBottom: 10 }} type="primary">
+                    <Link to="create">Create New Product</Link>
+                </Button>
+                <Button style={{ marginBottom: 10 }} type="primary">
+                    <Link to="edit">Test Edit</Link>
+                </Button>
+            </Space>
             <Table columns={columns} dataSource={products} pagination={{ pageSize: 5 }} rowKey="id" />
         </>
     );

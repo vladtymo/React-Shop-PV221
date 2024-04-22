@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Checkbox, Form, Input, InputNumber, Select, Space, Upload } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UploadOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
-export default function CreateForm() {
+const categories = [
+    { value: 1, label: "Electronics" },
+    { value: 2, label: "Sport" },
+    { value: 3, label: "Food & Drinks" },
+    { value: 4, label: "Other" }
+]
+
+export default function CreateForm({ product }) {
+
+    useEffect(() => {
+        if (product) {
+            form.setFieldsValue(product);
+        }
+    }, []);
 
     const [form] = Form.useForm();
 
@@ -92,8 +105,9 @@ export default function CreateForm() {
                 </div>
 
                 <Form.Item
-                    name="category"
+                    name="categoryId"
                     label="Category"
+                    initialValue={1}
                     rules={[
                         {
                             required: true,
@@ -102,12 +116,12 @@ export default function CreateForm() {
                 >
                     <Select
                         placeholder="Select a product category"
-                        allowClear
+                        options={categories}
                     >
-                        <Option value="1">Electronics</Option>
+                        {/* <Option value="1">Electronics</Option>
                         <Option value="2">Transport</Option>
                         <Option value="3">Sport</Option>
-                        <Option value="4">other</Option>
+                        <Option value="4">other</Option> */}
                     </Select>
                 </Form.Item>
 

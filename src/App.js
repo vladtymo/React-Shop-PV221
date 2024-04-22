@@ -6,6 +6,16 @@ import Products from './components/Products';
 import NoPage from './components/NoPage';
 import CreateForm from './components/CreateForm';
 
+const testProduct = {
+  name: "Monster Energy",
+  price: 99,
+  discount: 10,
+  categoryId: 2,
+  inStock: true,
+  description: "Do not drink it!",
+  image: null
+}
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -14,6 +24,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="products" element={<Products />} />
           <Route path="products/create" element={<CreateForm />} />
+          <Route path="products/edit" element={<CreateForm product={testProduct} />} />
           {/* <Route path="orders" element={<p>Orders</p>} /> */}
           <Route path="*" element={<NoPage />} />
         </Route>
