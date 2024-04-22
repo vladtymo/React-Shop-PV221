@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Rate, Space, Table, Tag } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-
-const makeFirstUpper = (text) => {
-    return text[0].toUpperCase() + text.slice(1);
-}
+import { makeFirstUpper } from '../utils/utils';
 
 const confirm = (id) => {
     console.log("Deleting product: ", id);
