@@ -3,6 +3,7 @@ import { Button, message, Popconfirm, Rate, Space, Table, Tag } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { makeFirstUpper } from '../utils/utils';
+import { getProducst } from '../services/products';
 
 const confirm = (id) => {
     console.log("Deleting product: ", id);
@@ -17,13 +18,13 @@ const columns = [
     },
     {
         title: 'Image',
-        dataIndex: 'thumbnail',
-        key: 'thumbnail',
+        dataIndex: 'imageUrl',
+        key: 'imageUrl',
         render: (text) => <img style={imageStyles} src={text} alt='Product Image' />
     },
     {
         title: 'Name',
-        dataIndex: 'title',
+        dataIndex: 'name',
         key: 'name'
     },
     {
@@ -34,15 +35,15 @@ const columns = [
     },
     {
         title: 'Category',
-        dataIndex: 'category',
-        key: 'category',
+        dataIndex: 'categoryName',
+        key: 'categoryName',
         render: (text) => <span>{makeFirstUpper(text)}</span>
     },
     {
-        title: 'Rating',
-        dataIndex: 'rating',
-        key: 'rating',
-        render: (text) => <Rate allowHalf disabled defaultValue={text} />
+        title: 'Discount',
+        dataIndex: 'discount',
+        key: 'discount'
+        //render: (text) => <Rate allowHalf disabled defaultValue={text} />
     },
     {
         title: 'Action',
@@ -72,10 +73,11 @@ export default function Products() {
     const [products, setProducts] = useState([]);
 
     const loadProducts = async () => {
-        const response = await fetch(api);
-        const data = await response.json();
+        //const response = await fetch(api);
+        //const data = await response.json();
 
-        setProducts(data.products);
+        const response = await getProducst();
+        setProducts(response.data);
     }
 
     useEffect(() => {
@@ -98,8 +100,8 @@ export default function Products() {
 }
 
 const imageStyles = {
-    width: 100,
-    height: 50,
+    width: 55,
+    height: 55,
     objectFit: "cover",
     borderRadius: 6
 }

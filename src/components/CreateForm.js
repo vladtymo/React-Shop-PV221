@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Checkbox, Form, Input, InputNumber, Select, Space, Upload } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UploadOutlined } from '@ant-design/icons';
+import { createProduct } from '../services/products';
 const { Option } = Select;
 
 const categories = [
@@ -23,6 +24,9 @@ export default function CreateForm({ product }) {
 
     const onFinish = (values) => {
         console.log(values);
+
+        // send to server
+        // createProduct(values)
     };
     const onReset = () => {
         form.resetFields();
