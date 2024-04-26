@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, message, Popconfirm, Rate, Space, Table, Tag } from 'antd';
+import { Button, message, Popconfirm, Space, Table } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { makeFirstUpper } from '../utils/utils';
@@ -20,7 +20,7 @@ const columns = [
         title: 'Image',
         dataIndex: 'imageUrl',
         key: 'imageUrl',
-        render: (text) => <img style={imageStyles} src={text} alt='Product Image' />
+        render: (text, record) => <img style={imageStyles} src={text} alt={record.name} />
     },
     {
         title: 'Name',
@@ -50,7 +50,7 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <a>Show</a>
+                <a href='/'>Show</a>
                 <Popconfirm
                     title="Delete the product"
                     description={`Are you sure to delete ${record.title}?`}
@@ -65,8 +65,6 @@ const columns = [
         ),
     },
 ];
-
-const api = "https://dummyjson.com/products";
 
 export default function Products() {
 

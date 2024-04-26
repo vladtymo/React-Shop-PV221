@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout as AntdLayout, theme } from 'antd';
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Footer from './Footer';
 import Header from './Header';
 

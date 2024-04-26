@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { Button, Checkbox, Form, Input, InputNumber, Select, Space, Upload } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UploadOutlined } from '@ant-design/icons';
-import { createProduct } from '../services/products';
-const { Option } = Select;
 
 const categories = [
     { value: 1, label: "Electronics" },
@@ -14,13 +12,13 @@ const categories = [
 
 export default function CreateForm({ product }) {
 
+    const [form] = Form.useForm();
+
     useEffect(() => {
         if (product) {
             form.setFieldsValue(product);
         }
-    }, []);
-
-    const [form] = Form.useForm();
+    }, [product, form]);
 
     const onFinish = (values) => {
         console.log(values);
