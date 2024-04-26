@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Checkbox, Form, Input, InputNumber, Select, Space, Upload } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UploadOutlined } from '@ant-design/icons';
+import { productsService } from '../server/products';
 
 const categories = [
     { value: 1, label: "Electronics" },
@@ -20,11 +21,14 @@ export default function CreateForm({ product }) {
         }
     }, [product, form]);
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         console.log(values);
 
+        values.image = values.image.originFileObj;
         // send to server
-        // createProduct(values)
+        const response = await productsService.create(values);
+
+        console.log(response.statusText);
     };
     const onReset = () => {
         form.resetFields();
