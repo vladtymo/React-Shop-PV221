@@ -117,7 +117,6 @@ export default function CreateForm({ product }) {
                 <Form.Item
                     name="categoryId"
                     label="Category"
-                    initialValue={1}
                     rules={[
                         {
                             required: true,
