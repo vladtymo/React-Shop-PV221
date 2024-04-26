@@ -9,6 +9,9 @@ export const productsService = {
     get: function () {
         return api.get('all');
     },
+    getCategories: function () {
+        return api.get('categories');
+    },
     create: function (model) {
 
         const formData = new FormData();

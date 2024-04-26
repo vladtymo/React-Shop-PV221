@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Form, Input, InputNumber, Select, Space, Upload } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UploadOutlined } from '@ant-design/icons';
 import { productsService } from '../server/products';
 
-const categories = [
-    { value: 1, label: "Electronics" },
-    { value: 2, label: "Sport" },
-    { value: 3, label: "Food & Drinks" },
-    { value: 4, label: "Other" }
-]
-
 export default function CreateForm({ product }) {
 
+    const [categories, setCategories] = useState([]);
     const [form] = Form.useForm();
 
+    const loadCategories = async () => {
+        const response = await productsService.getCategories();
+
+        // change property names: id -> value, name -> label
+        const mapped = response.data.map(function (x) { return { value: x.id, label: x.name } });
+        setCategories(mapped);
+    }
+
     useEffect(() => {
+        loadCategories();
+
         if (product) {
             form.setFieldsValue(product);
         }
@@ -122,12 +126,7 @@ export default function CreateForm({ product }) {
                 >
                     <Select
                         placeholder="Select a product category"
-                        options={categories}
-                    >
-                        {/* <Option value="1">Electronics</Option>
-                        <Option value="2">Transport</Option>
-                        <Option value="3">Sport</Option>
-                        <Option value="4">other</Option> */}
+                        options={categories}>
                     </Select>
                 </Form.Item>
 

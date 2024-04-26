@@ -85,8 +85,8 @@ export default function Products() {
 
         const res = await productsService.delete(id);
 
-        if (res.status == 200) {
-            setProducts(products.filter(x => x.id != id));
+        if (res.status === 200) {
+            setProducts(products.filter(x => x.id !== id));
             message.success('Product deleted successfully!');
         }
     };
