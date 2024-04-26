@@ -9,6 +9,9 @@ export const productsService = {
     get: function () {
         return api.get('all');
     },
+    getById: function (id) {
+        return api.get(`${id}`);
+    },
     getCategories: function () {
         return api.get('categories');
     },
@@ -24,6 +27,9 @@ export const productsService = {
     },
     delete: function (id) {
         return api.delete(`${id}`);
+    },
+    edit: function (model) {
+        return api.put("", model);
     }
 }
 

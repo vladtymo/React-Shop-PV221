@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Table } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { makeFirstUpper } from '../utils/utils';
 import { productsService } from '../server/products';
@@ -39,8 +39,8 @@ function getColumns(deleteHandler) {
         {
             title: 'Discount',
             dataIndex: 'discount',
-            key: 'discount'
-            //render: (text) => <Rate allowHalf disabled defaultValue={text} />
+            key: 'discount',
+            render: (text) => <span>{text}%</span>
         },
         {
             title: 'Action',
@@ -48,6 +48,9 @@ function getColumns(deleteHandler) {
             render: (_, record) => (
                 <Space size="middle">
                     <a href='/'>Show</a>
+                    <Link to={`edit/${record.id}`}>
+                        <Button icon={<EditOutlined />}></Button>
+                    </Link>
                     <Popconfirm
                         title="Delete the product"
                         description={`Are you sure to delete ${record.title}?`}

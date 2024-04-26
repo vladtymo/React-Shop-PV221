@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Form, Input, InputNumber, Select, Space, Upload } from 'antd';
+import { Button, Checkbox, Form, Input, InputNumber, Select, Space, Upload, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UploadOutlined } from '@ant-design/icons';
 import { productsService } from '../server/products';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function CreateForm({ product }) {
+let product = null;
+
+export default function CreateForm() {
 
     const [categories, setCategories] = useState([]);
     const [form] = Form.useForm();
+    const params = useParams();
+    const navigate = useNavigate();
+    const [editMode, setEditMode] = useState(false);
 
     const loadCategories = async () => {
         const response = await productsService.getCategories();
@@ -17,22 +23,48 @@ export default function CreateForm({ product }) {
         setCategories(mapped);
     }
 
+    const loadInitialProduct = async () => {
+        if (params.id) {
+            setEditMode(true);
+
+            const res = await productsService.getById(params.id);
+
+            if (res.status !== 200) return; // todo: throw exception
+
+            product = res.data;
+            form.setFieldsValue(res.data);
+        }
+    }
+
     useEffect(() => {
         loadCategories();
-
-        if (product) {
-            form.setFieldsValue(product);
-        }
-    }, [product, form]);
+        loadInitialProduct();
+    }, []);
 
     const onFinish = async (values) => {
         console.log(values);
 
-        values.image = values.image.originFileObj;
-        // send to server
-        const response = await productsService.create(values);
+        if (editMode) {
+            values.id = product.id;
+            values.imageUrl = product.imageUrl;
 
-        console.log(response.statusText);
+            const res = await productsService.edit(values);
+
+            if (res.status === 200) {
+                message.success("Product edited successfully!");
+            }
+        }
+        else {
+            values.image = values.image.originFileObj;
+            // send to server
+            const res = await productsService.create(values);
+
+            if (res.status === 200) {
+                message.success("Product created successfully!");
+            }
+        }
+
+        navigate(-1);
     };
     const onReset = () => {
         form.resetFields();
@@ -46,7 +78,7 @@ export default function CreateForm({ product }) {
 
     return (
         <>
-            <h1>Create New Product</h1>
+            <h1 style={{ textAlign: "center" }}>{editMode ? 'Edit' : 'Create'} Product</h1>
             <Form
                 form={form}
                 name="control-hooks"
@@ -57,6 +89,8 @@ export default function CreateForm({ product }) {
                 }}
                 layout="vertical"
             >
+                {/* <Form.Item hidden={true} name="id" label="id" /> */}
+
                 <Form.Item
                     name="name"
                     label="Name"
@@ -164,7 +198,7 @@ export default function CreateForm({ product }) {
 
                     <Space>
                         <Button type="primary" htmlType="submit">
-                            Create
+                            {editMode ? "Edit" : "Create"}
                         </Button>
                         <Button htmlType="button" onClick={onReset}>
                             Reset
