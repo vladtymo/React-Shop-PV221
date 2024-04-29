@@ -177,6 +177,7 @@ export default function CreateForm() {
                 <Form.Item
                     name="description"
                     label="Description"
+                    initialValue={null}
                 >
                     <TextArea rows={4}
                         placeholder="Enter product description"
@@ -186,7 +187,8 @@ export default function CreateForm() {
                 <Form.Item
                     name="inStock"
                     valuePropName="checked"
-                    label="In Stock">
+                    label="In Stock"
+                    initialValue={true}>
                     <Checkbox>
                         In Stock
                     </Checkbox>

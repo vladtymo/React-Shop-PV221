@@ -20,6 +20,7 @@ export const productsService = {
         const formData = new FormData();
 
         for (const key in model) {
+            if (model[key] == null) continue;
             formData.append(key, model[key]);
         }
 

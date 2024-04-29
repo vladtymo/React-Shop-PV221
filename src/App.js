@@ -6,16 +6,6 @@ import Products from './components/Products';
 import NoPage from './components/NoPage';
 import CreateForm from './components/CreateForm';
 
-const testProduct = {
-  name: "Monster Energy",
-  price: 99,
-  discount: 10,
-  categoryId: 2,
-  inStock: true,
-  description: "Do not drink it!",
-  image: null
-}
-
 const App = () => {
   return (
     <BrowserRouter>
