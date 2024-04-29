@@ -10,7 +10,10 @@ function getColumns(deleteHandler) {
         {
             title: 'Id',
             dataIndex: 'id',
-            key: 'id'
+            key: 'id',
+            sorter: {
+                compare: (a, b) => a.id - b.id, // less <0 equsls 0> bigger
+            },
         },
         {
             title: 'Image',
@@ -22,13 +25,19 @@ function getColumns(deleteHandler) {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (text) => <a href='/'>{text}</a>
+            render: (text) => <a href='/'>{text}</a>,
+            sorter: {
+                compare: (a, b) => a.name.localeCompare(b.name)
+            },
         },
         {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
-            render: (text) => <span>{text}$</span>
+            render: (text) => <span>{text}$</span>,
+            sorter: {
+                compare: (a, b) => a.price - b.price
+            },
         },
         {
             title: 'Category',
@@ -40,7 +49,10 @@ function getColumns(deleteHandler) {
             title: 'Discount',
             dataIndex: 'discount',
             key: 'discount',
-            render: (text) => <span>{text}%</span>
+            render: (text) => <span>{text}%</span>,
+            sorter: {
+                compare: (a, b) => a.discount - b.discount
+            },
         },
         {
             title: 'Action',
@@ -72,15 +84,20 @@ export default function Products() {
     const [products, setProducts] = useState([]);
 
     const loadProducts = async () => {
-        const response = await productsService.get();
-        const items = response.data;
+        try {
+            const response = await productsService.get();
+            const items = response.data;
 
-        for (const i of items) {
-            if (!i.imageUrl.includes("://"))
-                i.imageUrl = process.env.REACT_APP_API_HOST + i.imageUrl
+            for (const i of items) {
+                if (!i.imageUrl.includes("://"))
+                    i.imageUrl = process.env.REACT_APP_API_HOST + i.imageUrl
+            }
+
+            setProducts(response.data);
+
+        } catch (error) {
+            console.log(error);
         }
-
-        setProducts(response.data);
     }
 
     const deleteProduct = async (id) => {
