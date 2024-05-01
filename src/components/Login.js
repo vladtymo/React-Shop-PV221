@@ -2,26 +2,29 @@ import React from 'react';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import { accountsService } from '../server/accounts';
 import { tokensService } from '../server/tokens';
-
-const onFinish = async (values) => {
-    console.log('Success:', values);
-
-    const res = await accountsService.login(values);
-
-    if (res.status !== 200) {
-        message.console.error("Something went wrong!");
-        return;
-    }
-
-    tokensService.save(res.data);
-    message.success("Your logged in successfully!");
-};
-
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+    const navigate = useNavigate();
+
+    const onFinish = async (values) => {
+        console.log('Success:', values);
+
+        const res = await accountsService.login(values);
+
+        if (res.status !== 200) {
+            message.console.error("Something went wrong!");
+            return;
+        }
+
+        tokensService.save(res.data);
+        message.success("Your logged in successfully!");
+        navigate(-1);
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
 
     return (
         <>

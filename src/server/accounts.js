@@ -2,7 +2,7 @@ import axios from "axios";
 import { tokensService } from "./tokens";
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL + "accounts/"
+    baseURL: process.env.REACT_APP_API_URL + "accounts"
 });
 
 // ----- create service object
