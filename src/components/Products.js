@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Table } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, InfoCircleFilled } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { makeFirstUpper } from '../utils/utils';
 import { productsService } from '../server/products';
@@ -59,7 +59,6 @@ function getColumns(deleteHandler) {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <a href='/'>Show</a>
                     <Link to={`edit/${record.id}`}>
                         <Button icon={<EditOutlined />}></Button>
                     </Link>
@@ -121,12 +120,6 @@ export default function Products() {
             <Space>
                 <Button style={{ marginBottom: 10 }} type="primary">
                     <Link to="create">Create New Product</Link>
-                </Button>
-                <Button style={{ marginBottom: 10 }} type="primary">
-                    <Link to="edit">Test Edit</Link>
-                </Button>
-                <Button htmlType="button" onClick={() => navigate(-1)}>
-                    Back
                 </Button>
             </Space>
             <Table columns={getColumns(deleteProduct)} dataSource={products} pagination={{ pageSize: 5 }} rowKey="id" />

@@ -14,8 +14,7 @@ const onFinish = async (values) => {
     }
 
     tokensService.save(res.data);
-
-    console.log(tokensService.getAccessToken());
+    message.success("Your logged in successfully!");
 };
 
 const onFinishFailed = (errorInfo) => {
@@ -25,71 +24,68 @@ const onFinishFailed = (errorInfo) => {
 export default function Login() {
 
     return (
-        <Form
-            name="basic"
-            labelCol={{
-                span: 8,
-            }}
-            wrapperCol={{
-                span: 16,
-            }}
-            style={{
-                maxWidth: 600,
-            }}
-            initialValues={{
-                remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-        >
-            <Form.Item
-                label="Email"
-                name="email"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your email!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                ]}
-            >
-                <Input.Password />
-            </Form.Item>
-
-            {/* <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
+        <>
+            <h1 style={center}>Login Form</h1>
+            <Form
+                name="basic"
+                style={{
+                    maxWidth: 400,
+                    margin: "auto"
                 }}
-            >
-                <Checkbox>Remember me</Checkbox>
-            </Form.Item> */}
-
-            <Form.Item
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
+                initialValues={{
+                    remember: true,
                 }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+                layout='vertical'
             >
-                <Button type="primary" htmlType="submit">
-                    Login
-                </Button>
-            </Form.Item>
-        </Form>
+                <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your email!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item
+                    name="remember"
+                    valuePropName="checked"
+                    style={center}
+                >
+                    <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+
+                <Form.Item
+                    style={center}
+                >
+                    <Button type="primary" htmlType="submit">
+                        Login
+                    </Button>
+                </Form.Item>
+            </Form>
+        </>
     );
+}
+
+const center = {
+    textAlign: "center"
 }

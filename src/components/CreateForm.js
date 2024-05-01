@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Form, Input, InputNumber, Select, Space, Upload, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { UploadOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, UploadOutlined } from '@ant-design/icons';
 import { productsService } from '../server/products';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -78,8 +78,8 @@ export default function CreateForm() {
 
     return (
         <>
-            <Button htmlType="button" onClick={() => navigate(-1)}>
-                Back
+            <Button type='text' onClick={() => navigate(-1)}>
+                <ArrowLeftOutlined />
             </Button>
 
             <h1 style={{ textAlign: "center" }}>{editMode ? 'Edit' : 'Create'} Product</h1>
@@ -91,13 +91,12 @@ export default function CreateForm() {
                     maxWidth: 600,
                     margin: "auto"
                 }}
+                initialValues={{
+                    description: null,
+                    inStock: false,
+                    discount: 0
+                }}
                 layout="vertical"
-            // requiredMark={(label, { required }) => (
-            //     <>
-            //         {required ? <Tag color="error">Required</Tag> : null}
-            //         {label}
-            //     </>
-            // )}
             >
                 {/* <Form.Item hidden={true} name="id" label="id" /> */}
 
@@ -187,7 +186,6 @@ export default function CreateForm() {
                 <Form.Item
                     name="description"
                     label="Description"
-                    initialValue={null}
                 >
                     <TextArea rows={4}
                         placeholder="Enter product description"
@@ -198,7 +196,7 @@ export default function CreateForm() {
                     name="inStock"
                     valuePropName="checked"
                     label="In Stock"
-                    initialValue={true}>
+                >
                     <Checkbox>
                         In Stock
                     </Checkbox>
