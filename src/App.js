@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Products from './components/Products';
 import NoPage from './components/NoPage';
 import CreateForm from './components/CreateForm';
+import Login from './components/Login';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
           <Route path="products" element={<Products />} />
           <Route path="products/create" element={<CreateForm />} />
           <Route path="products/edit/:id" element={<CreateForm />} />

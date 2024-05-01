@@ -78,6 +78,10 @@ export default function CreateForm() {
 
     return (
         <>
+            <Button htmlType="button" onClick={() => navigate(-1)}>
+                Back
+            </Button>
+
             <h1 style={{ textAlign: "center" }}>{editMode ? 'Edit' : 'Create'} Product</h1>
             <Form
                 form={form}
@@ -88,6 +92,12 @@ export default function CreateForm() {
                     margin: "auto"
                 }}
                 layout="vertical"
+            // requiredMark={(label, { required }) => (
+            //     <>
+            //         {required ? <Tag color="error">Required</Tag> : null}
+            //         {label}
+            //     </>
+            // )}
             >
                 {/* <Form.Item hidden={true} name="id" label="id" /> */}
 

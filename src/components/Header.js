@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Layout as AntdLayout, Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeOutlined, InfoCircleOutlined, ProductOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { HomeOutlined, InfoCircleOutlined, LoginOutlined, ProductOutlined, UnorderedListOutlined } from '@ant-design/icons';
 
 const { Header: AntdHeader } = AntdLayout;
 
@@ -25,6 +25,11 @@ const menuItems = [
         key: "/about",
         label: <Link to="/about">About</Link>,
         icon: <InfoCircleOutlined />
+    },
+    {
+        key: "/login",
+        label: <Link to="/login">Login</Link>,
+        icon: <LoginOutlined />
     }
 ]
 
@@ -53,7 +58,7 @@ export default function Header() {
             <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={[current]}
+                selectedKeys={[current]}
                 items={menuItems}
                 style={{
                     flex: 1,

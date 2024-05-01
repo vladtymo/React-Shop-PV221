@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Table } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { makeFirstUpper } from '../utils/utils';
 import { productsService } from '../server/products';
 
@@ -82,6 +82,7 @@ function getColumns(deleteHandler) {
 export default function Products() {
 
     const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
 
     const loadProducts = async () => {
         try {
@@ -123,6 +124,9 @@ export default function Products() {
                 </Button>
                 <Button style={{ marginBottom: 10 }} type="primary">
                     <Link to="edit">Test Edit</Link>
+                </Button>
+                <Button htmlType="button" onClick={() => navigate(-1)}>
+                    Back
                 </Button>
             </Space>
             <Table columns={getColumns(deleteProduct)} dataSource={products} pagination={{ pageSize: 5 }} rowKey="id" />
