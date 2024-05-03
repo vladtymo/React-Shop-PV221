@@ -21,7 +21,6 @@ export default function Layout() {
                     padding: '0 48px',
                 }}
             >
-
                 <div
                     style={{
                         background: colorBgContainer,

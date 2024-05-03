@@ -11,8 +11,10 @@ export const accountsService = {
         return api.post('login', model);
     },
     logout: async function () {
-        const token = tokensService.getRefreshToken();
-        if (token)
-            await api.post('logout', { token });
+        const refreshToken = tokensService.getRefreshToken();
+        tokensService.clear();
+
+        if (refreshToken)
+            await api.post('logout', { refreshToken });
     }
 }

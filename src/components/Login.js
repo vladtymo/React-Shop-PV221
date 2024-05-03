@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import { accountsService } from '../server/accounts';
 import { tokensService } from '../server/tokens';
 import { useNavigate } from 'react-router-dom';
+import { AccountsContext } from '../contexts/account.context';
 
 export default function Login() {
     const navigate = useNavigate();
+    const { login } = useContext(AccountsContext);
 
     const onFinish = async (values) => {
         console.log('Success:', values);
@@ -18,6 +20,10 @@ export default function Login() {
         }
 
         tokensService.save(res.data);
+        login({
+            email: "hello@ukr.net"
+        });
+
         message.success("Your logged in successfully!");
         navigate(-1);
     };

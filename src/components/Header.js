@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Layout as AntdLayout, Menu } from 'antd';
+import React, { useContext, useEffect, useState } from 'react'
+import { Layout as AntdLayout, Menu, Space } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeOutlined, InfoCircleOutlined, LoginOutlined, ProductOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { HomeOutlined, InfoCircleOutlined, LoginOutlined, LogoutOutlined, ProductOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { AccountsContext } from '../contexts/account.context';
+import { accountsService } from '../server/accounts';
 
 const { Header: AntdHeader } = AntdLayout;
 
@@ -26,15 +28,16 @@ const menuItems = [
         label: <Link to="/about">About</Link>,
         icon: <InfoCircleOutlined />
     },
-    {
-        key: "/login",
-        label: <Link to="/login">Login</Link>,
-        icon: <LoginOutlined />
-    }
+    // {
+    //     key: "/login",
+    //     label: <Link to="/login">Login</Link>,
+    //     icon: <LoginOutlined />
+    // }
 ]
 
 export default function Header() {
 
+    const { email, isAuth, logout } = useContext(AccountsContext);
     let location = useLocation();
 
     const [current, setCurrent] = useState(location.pathname);
@@ -46,6 +49,11 @@ export default function Header() {
             }
         }
     }, [location, current]);
+
+    const onLogout = () => {
+        accountsService.logout();
+        logout();
+    }
 
     return (
         <AntdHeader
@@ -66,6 +74,22 @@ export default function Header() {
                 }}
             >
             </Menu>
+
+            {
+                isAuth
+                    ?
+                    <Space>
+                        <span style={{ color: "white" }}>Hello, {email}</span>
+                        <Link onClick={onLogout} style={{ color: "white" }}><LogoutOutlined /></Link>
+                    </Space>
+                    :
+                    <Link to="/login" style={{ color: "white" }}>
+                        <Space size="small">
+                            <LogoutOutlined />
+                            <span>Login</span>
+                        </Space>
+                    </Link>
+            }
         </AntdHeader>
     )
 }
