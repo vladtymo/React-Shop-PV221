@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Layout as AntdLayout, Menu, Space } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeOutlined, InfoCircleOutlined, LoginOutlined, LogoutOutlined, ProductOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { HomeOutlined, InfoCircleOutlined, LogoutOutlined, ProductOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { AccountsContext } from '../contexts/account.context';
 import { accountsService } from '../server/accounts';
 
