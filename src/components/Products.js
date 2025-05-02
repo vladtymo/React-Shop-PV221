@@ -17,18 +17,16 @@ function getColumns(deleteHandler) {
         },
         {
             title: 'Image',
-            dataIndex: 'imageUrl',
-            key: 'imageUrl',
+            dataIndex: 'thumbnail',
+            key: 'thumbnail',
             render: (text, record) => <img style={imageStyles} src={text} alt={record.name} />
         },
         {
             title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            dataIndex: 'brand',
+            key: 'brand',
             render: (text) => <a href='/'>{text}</a>,
-            sorter: {
-                compare: (a, b) => a.name.localeCompare(b.name)
-            },
+            sorter: (a, b) => a.brand?.localeCompare(b.brand) ?? 0,
         },
         {
             title: 'Price',
@@ -41,14 +39,14 @@ function getColumns(deleteHandler) {
         },
         {
             title: 'Category',
-            dataIndex: 'categoryName',
-            key: 'categoryName',
+            dataIndex: 'category',
+            key: 'category',
             render: (text) => <span>{makeFirstUpper(text)}</span>
         },
         {
-            title: 'Discount',
-            dataIndex: 'discount',
-            key: 'discount',
+            title: 'Rating',
+            dataIndex: 'rating',
+            key: 'rating',
             render: (text) => <span>{text}%</span>,
             sorter: {
                 compare: (a, b) => a.discount - b.discount
@@ -86,14 +84,8 @@ export default function Products() {
     const loadProducts = async () => {
         try {
             const response = await productsService.get();
-            const items = response.data;
-
-            for (const i of items) {
-                if (!i.imageUrl.includes("://"))
-                    i.imageUrl = process.env.REACT_APP_API_HOST + i.imageUrl
-            }
-
-            setProducts(response.data);
+            const items = response.data.products;
+            setProducts(items);
 
         } catch (error) {
             console.log(error);

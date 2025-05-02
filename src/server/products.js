@@ -2,7 +2,7 @@ import axios from "axios";
 import { tokensService } from "./tokens";
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL + "products"
+    baseURL: "https://dummyjson.com/products"//process.env.REACT_APP_API_URL + "products"
 });
 
 api.interceptors.request.use(
@@ -21,7 +21,7 @@ api.interceptors.request.use(
 // ----- create service object
 export const productsService = {
     get: function () {
-        return api.get('all');
+        return api.get();
     },
     getById: function (id) {
         return api.get(`${id}`);

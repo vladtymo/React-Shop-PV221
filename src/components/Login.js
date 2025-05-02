@@ -12,14 +12,14 @@ export default function Login() {
     const onFinish = async (values) => {
         console.log('Success:', values);
 
-        const res = await accountsService.login(values);
+        //const res = await accountsService.login(values);
 
-        if (res.status !== 200) {
-            message.console.error("Something went wrong!");
-            return;
-        }
+        // if (res.status !== 200) {
+        //     message.console.error("Something went wrong!");
+        //     return;
+        // }
 
-        tokensService.save(res.data);
+        //tokensService.save(res.data);
         login({
             email: "hello@ukr.net"
         });
